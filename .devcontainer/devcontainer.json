@@ -9,7 +9,15 @@
 		"ghcr.io/devcontainers-contrib/features/nestjs-cli:2": {},
 		"ghcr.io/devcontainers-contrib/features/typescript:2": {}
 	},
-	"initializeCommand": "echo 'Hello, World!'"
+	"initializeCommand": "echo 'Hello, World!'",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"firsttris.vscode-jest-runner",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
