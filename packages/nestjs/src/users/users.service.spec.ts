@@ -43,7 +43,23 @@ describe('UsersService', () => {
         const user = await service.create({ email: 'test@test.com' });
         const users = await service.getAll();
         expect(users).toEqual([user]);
+      });
+    });
+  });
 
+  describe('getOne', () => {
+    describe('when the user exists', () => {
+      it('should return the user', async () => {
+        const user = await service.create({ email: 'test@test.com' });
+        const foundUser = await service.getOne({ email: 'test@test.com' });
+        expect(foundUser).toEqual(user);
+      });
+    });
+
+    describe('when the user does not exist', () => {
+      it('should return null', async () => {
+        const foundUser = await service.getOne({ email: 'test@test.com' });
+        expect(foundUser).toBeNull();
       });
     });
   });
@@ -59,7 +75,6 @@ describe('UsersService', () => {
         });
         const users = await service.getAll();
         expect(users).toEqual([user]);
-
       });
     });
 
