@@ -11,6 +11,7 @@
     "start": "nest start",
     "dev:db:create": "psql postgres://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/postgres -c \"CREATE DATABASE $POSTGRES_DB\" -c \"CREATE DATABASE $POSTGRES_DB_TEST\"",
     "dev:db:drop": "psql postgres://$POSTGRES_USERNAME:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/postgres -c \"DROP DATABASE IF EXISTS $POSTGRES_DB\" -c \"DROP DATABASE IF EXISTS $POSTGRES_DB_TEST\"",
+    "dev:db:reset": "pnpm run dev:db:drop && pnpm run dev:db:create",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
