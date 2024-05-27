@@ -3,7 +3,7 @@ import AuthentifiedRoute from "./AuthentifiedRoute";
 import { Login } from "./auth/login";
 import { Register } from "./auth/register";
 import { Profile } from "./auth/profile/Index";
-import { Root } from "./root";
+import { Root } from "./Root";
 
 const Router = () => {
   const router = createBrowserRouter(
