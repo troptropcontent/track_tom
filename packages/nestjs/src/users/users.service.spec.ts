@@ -2,25 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users.entity';
+import { TestUtils } from '../utils/test-utils';
 
 describe('UsersService', () => {
   let service: UsersService;
   let module: TestingModule;
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: 'db',
-          port: 5432,
-          username: process.env.POSTGRES_USERNAME,
-          password: process.env.POSTGRES_PASSWORD,
-          database: process.env.POSTGRES_DB_TEST,
-          entities: [User],
-          synchronize: true,
-        }),
-        TypeOrmModule.forFeature([User]),
-      ],
+      imports: [TestUtils.database([User]), TypeOrmModule.forFeature([User])],
       providers: [UsersService],
     }).compile();
     service = module.get<UsersService>(UsersService);
@@ -71,6 +60,7 @@ describe('UsersService', () => {
         expect(user).toEqual({
           id: expect.any(Number),
           email: 'test@test.com',
+          encryptedPassword: null,
           isActive: true,
         });
         const users = await service.getAll();
@@ -94,6 +84,7 @@ describe('UsersService', () => {
         expect(updatedUser).toEqual({
           id: user.id,
           email: newEmail,
+          encryptedPassword: null,
           isActive: true,
         });
       });
