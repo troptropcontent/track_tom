@@ -14,7 +14,9 @@
 		"vscode": {
 			"extensions": [
 				"firsttris.vscode-jest-runner",
-				"dbaeumer.vscode-eslint"
+				"dbaeumer.vscode-eslint",
+				"rangav.vscode-thunder-client",
+				"bradlc.vscode-tailwindcss"
 			]
 		}
 	}
