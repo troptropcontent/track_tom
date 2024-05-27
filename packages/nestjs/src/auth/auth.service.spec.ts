@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/users.entity';
 import { UsersService } from '../users/users.service';
+import { TestUtils } from '../utils/test-utils';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -14,22 +16,19 @@ describe('AuthService', () => {
     module = await Test.createTestingModule({
       providers: [AuthService],
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: 'db',
-          port: 5432,
-          username: process.env.POSTGRES_USERNAME,
-          password: process.env.POSTGRES_PASSWORD,
-          database: process.env.POSTGRES_DB_TEST,
-          entities: [User],
-          synchronize: true,
-        }),
+        TestUtils.database([User]),
         UsersModule,
+        JwtModule.register({
+          secret: jwtConstants.secret,
+          signOptions: { expiresIn: '60s' },
+        }),
       ],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
     userService = module.get<UsersService>(UsersService);
+
+    console.log({ userService });
 
     expect(await userService.getAll()).toHaveLength(0);
   });
