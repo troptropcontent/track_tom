@@ -1,7 +1,5 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
-import { FindManyOptions } from 'typeorm';
-import { Project } from './entities/project.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('projects')
@@ -10,7 +8,9 @@ export class ProjectsController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Param() filters: FindManyOptions<Project>) {
-    return this.projectsService.findAll(filters);
+  findAll(@Request() req) {
+    const user = req.user;
+
+    return this.projectsService.findAll({ where: { user: { id: user.id } } });
   }
 }

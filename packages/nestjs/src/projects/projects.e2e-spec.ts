@@ -18,9 +18,9 @@ describe('Projects', () => {
   let projectRepository: Repository<Project>;
   let authService: AuthService;
 
-  const createUser = async () => {
+  const createUser = async (email: string = 'test@test.com') => {
     const user = await userRepository.create({
-      email: 'test@test.com',
+      email,
       encryptedPassword: 'password',
     });
     await userRepository.save(user);
@@ -32,9 +32,10 @@ describe('Projects', () => {
     return access_token;
   };
 
-  const createProject = async () => {
+  const createProject = async (user: User) => {
     const project = await projectRepository.create({
       name: 'Test Project',
+      user,
     });
     await projectRepository.save(project);
     return project;
@@ -60,8 +61,8 @@ describe('Projects', () => {
   });
 
   afterEach(async () => {
-    await userRepository.query(`DELETE FROM users;`);
     await projectRepository.query(`DELETE FROM projects;`);
+    await userRepository.query(`DELETE FROM users;`);
   });
 
   afterAll(async () => {
@@ -103,17 +104,39 @@ describe('Projects', () => {
         });
       });
       describe('when there are projects', () => {
-        it('should return the projects', async () => {
+        it('should return the projects related to the user', async () => {
           const user = await createUser();
+          const anotherUser = await createUser('another@test.com');
           const access_token = await getToken(user);
-          const project = await createProject();
+          const anotherAccessToken = await getToken(anotherUser);
+          const project = await createProject(user);
+          const anotherProject = await createProject(anotherUser);
           const response = await request(app.getHttpServer())
             .get('/projects')
             .set('Accept', 'application/json')
             .set('Authorization', `Bearer ${access_token}`)
             .expect('Content-Type', /json/)
             .expect(200);
-          expect(response.body).toEqual([project]);
+          expect(response.body).toEqual([
+            {
+              description: null,
+              id: project.id,
+              name: project.name,
+            },
+          ]);
+          const anotherResponse = await request(app.getHttpServer())
+            .get('/projects')
+            .set('Accept', 'application/json')
+            .set('Authorization', `Bearer ${anotherAccessToken}`)
+            .expect('Content-Type', /json/)
+            .expect(200);
+          expect(anotherResponse.body).toEqual([
+            {
+              description: null,
+              id: anotherProject.id,
+              name: anotherProject.name,
+            },
+          ]);
         });
       });
     });
