@@ -11,8 +11,11 @@ type Project = {
 };
 
 const fetchProjects = () =>
-  axios.get<Project[]>(`${BASE_URL}/projects`).then((response) => response.data)
+  axios
+    .get<Project[]>(`${BASE_URL}/projects`)
+    .then((response) => response.data);
 
-const useProjectsQuery = () => useQuery({queryKey: "projects", queryFn: fetchProjects});
+const useProjectsQuery = () =>
+  useQuery({ queryKey: "projects", queryFn: fetchProjects });
 
 export { useProjectsQuery };
