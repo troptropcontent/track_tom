@@ -2,7 +2,23 @@ import { Classes } from "../constants";
 
 type BaseProps = {
   children: React.ReactNode;
-  className?: string
+  className?: string;
+  as?:
+    | "ul"
+    | "li"
+    | "div"
+    | "section"
+    | "article"
+    | "main"
+    | "aside"
+    | "footer"
+    | "header"
+    | "nav"
+    | "section"
+    | "span"
+    | "template"
+    | "textarea"
+    | "video";
 };
 
 type FlexProps =
@@ -37,7 +53,9 @@ const loadClasses = (props: StyleProps) => {
       props.flexDirection &&
       classes.push(Classes.flex.flexDirection[props.flexDirection]);
     props.flex && props.items && classes.push(Classes.flex.items[props.items]);
-    props.flex && props.justify && classes.push(Classes.flex.justify[props.justify]);
+    props.flex &&
+      props.justify &&
+      classes.push(Classes.flex.justify[props.justify]);
     props.flex && props.gap && classes.push(Classes.gap[props.gap]);
   }
 
@@ -50,12 +68,13 @@ const loadClasses = (props: StyleProps) => {
   return classes.join(" ");
 };
 
-const Box = ({ children, className, ...props }: BoxProps) => {
-  let classes = loadClasses(props)
+const Box = ({ children, className, as = "div", ...props }: BoxProps) => {
+  let classes = loadClasses(props);
+  const Tag = as;
   if (className) {
-    classes += ` ${className}`
+    classes += ` ${className}`;
   }
-  return <div className={classes}>{children}</div>;
+  return <Tag className={classes}>{children}</Tag>;
 };
 
 export { Box };
