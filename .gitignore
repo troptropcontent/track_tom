@@ -1,3 +1,5 @@
 # Enviroment Variables
 .devcontainer/.env
 
+# Pnpm Store
+/pnpm-store
