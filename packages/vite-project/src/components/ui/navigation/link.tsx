@@ -3,13 +3,15 @@ import { Link as RouterLink } from "react-router-dom";
 
 type LinkProps = BaseLinkProps & (NavigationLinkProps | ActionLinkProps);
 
-type BaseLinkProps = {
-  children: ReactNode
-  text?: null
-} | {
-  children?: null
-  text: string
-};
+type BaseLinkProps =
+  | {
+      children: ReactNode;
+      text?: null;
+    }
+  | {
+      children?: null;
+      text: string;
+    };
 
 type ActionLinkProps = BaseLinkProps & {
   onClick: () => void;
