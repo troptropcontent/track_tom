@@ -1,26 +1,31 @@
+import { ReactNode } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-type LinkProps = BaseLinkProps & (NavigationLinkProps | ActionLinkProps)
+type LinkProps = BaseLinkProps & (NavigationLinkProps | ActionLinkProps);
 
 type BaseLinkProps = {
-  children: React.ReactNode;
-}
+  children: ReactNode
+  text?: null
+} | {
+  children?: null
+  text: string
+};
 
 type ActionLinkProps = BaseLinkProps & {
   onClick: () => void;
-  to?: null
+  to?: null;
 };
 
 type NavigationLinkProps = {
-  to: string
-  onClick?: null
-}
+  to: string;
+  onClick?: null;
+};
 
-const Link = ({ children, to, onClick }: LinkProps) => {
+const Link = ({ children, text, to, onClick }: LinkProps) => {
   if (typeof to === "string") {
-    return <RouterLink to={to}>{children}</RouterLink>;
+    return <RouterLink to={to}>{children || text}</RouterLink>;
   }
-  return <button onClick={onClick}>{children}</button>;
+  return <button onClick={onClick}>{children || text}</button>;
 };
 
 export { Link };

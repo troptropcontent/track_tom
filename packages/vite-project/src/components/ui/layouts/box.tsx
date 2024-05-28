@@ -1,13 +1,16 @@
+import { Classes } from "../constants";
+
 type BaseProps = {
   children: React.ReactNode;
+  className?: string
 };
 
 type FlexProps =
   | {
       flex: true;
-      flexDirection: keyof typeof Classes.flexDirection;
-      items: keyof typeof Classes.items;
-      justify: keyof typeof Classes.justify;
+      flexDirection: keyof typeof Classes.flex.flexDirection;
+      items: keyof typeof Classes.flex.items;
+      justify: keyof typeof Classes.flex.justify;
       gap?: keyof typeof Classes.gap;
     }
   | {
@@ -15,49 +18,16 @@ type FlexProps =
       flexDirection?: never;
       items?: never;
       justify?: never;
+      gap?: never;
     };
 
 type StyleProps = FlexProps & {
   height?: keyof typeof Classes.height;
-  background?: keyof typeof Classes.background;
+  background?: keyof typeof Classes.colors;
+  padding?: keyof typeof Classes.padding;
 };
 
 type BoxProps = BaseProps & StyleProps;
-
-const Classes = {
-  flexDirection: {
-    row: "flex-row",
-    col: "flex-col",
-  },
-  items: {
-    center: "items-center",
-    start: "items-start",
-    end: "items-end",
-    stretch: "items-stretch",
-    baseline: "items-baseline",
-  },
-  justify: {
-    center: "justify-center",
-    start: "justify-start",
-    end: "justify-end",
-    spaceBetween: "justify-space-between",
-    spaceAround: "justify-space-around",
-    spaceEvenly: "justify-space-evenly",
-  },
-  height: {
-    auto: "h-auto",
-    full: "h-full",
-    screen: "h-screen",
-  },
-  gap: {
-    sm: "gap-2",
-    md: "gap-4",
-    lg: "gap-8",
-  },
-  background: {
-    primary: "bg-sky-50",
-  },
-} as const;
 
 const loadClasses = (props: StyleProps) => {
   const classes = [];
@@ -65,21 +35,26 @@ const loadClasses = (props: StyleProps) => {
     classes.push("flex");
     props.flex &&
       props.flexDirection &&
-      classes.push(Classes.flexDirection[props.flexDirection]);
-    props.flex && props.items && classes.push(Classes.items[props.items]);
-    props.flex && props.justify && classes.push(Classes.justify[props.justify]);
+      classes.push(Classes.flex.flexDirection[props.flexDirection]);
+    props.flex && props.items && classes.push(Classes.flex.items[props.items]);
+    props.flex && props.justify && classes.push(Classes.flex.justify[props.justify]);
     props.flex && props.gap && classes.push(Classes.gap[props.gap]);
   }
 
   props.height && classes.push(Classes.height[props.height]);
 
-  props.background && classes.push(Classes.background[props.background]);
+  props.background && classes.push(Classes.colors[props.background]);
+
+  props.padding && classes.push(Classes.padding[props.padding]);
 
   return classes.join(" ");
 };
 
-const Box = ({ children, ...props }: BoxProps) => {
-  const classes = loadClasses(props);
+const Box = ({ children, className, ...props }: BoxProps) => {
+  let classes = loadClasses(props)
+  if (className) {
+    classes += ` ${className}`
+  }
   return <div className={classes}>{children}</div>;
 };
 

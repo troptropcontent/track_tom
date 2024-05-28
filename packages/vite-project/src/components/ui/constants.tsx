@@ -1,4 +1,9 @@
 export const Classes = {
+  padding: {
+    sm: "p-2",
+    md: "p-4",
+    lg: "p-8",
+  },
   colors: {
     primary: {
       "50": "bg-sky-50",
@@ -33,11 +38,15 @@ export const Classes = {
       center: "items-center",
       start: "items-start",
       end: "items-end",
+      between: "items-between",
+      stretch: "items-stretch",
     },
     justify: {
       center: "justify-center",
       start: "justify-start",
       end: "justify-end",
+      between: "justify-between",
+      stretch: "justify-stretch",
     },
   },
   size: {

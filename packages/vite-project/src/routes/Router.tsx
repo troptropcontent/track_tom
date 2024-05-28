@@ -1,4 +1,9 @@
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import AuthentifiedRoute from "./AuthentifiedRoute";
 import { Login } from "./auth/login";
 import { Register } from "./auth/register";
@@ -12,14 +17,27 @@ const Router = () => {
         <Route path="/auth">
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="profile" element={<AuthentifiedRoute><Profile /></AuthentifiedRoute>} />
+          <Route
+            path="profile"
+            element={
+              <AuthentifiedRoute>
+                <Profile />
+              </AuthentifiedRoute>
+            }
+          />
         </Route>
-        <Route path="/" element={<AuthentifiedRoute><Root /></AuthentifiedRoute>} />
-      </Route>
-    )
+        <Route
+          path="/"
+          element={
+            <AuthentifiedRoute>
+              <Root />
+            </AuthentifiedRoute>
+          }
+        />
+      </Route>,
+    ),
   );
   return <RouterProvider router={router} />;
 };
 
 export default Router;
-

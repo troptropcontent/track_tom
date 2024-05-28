@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { createContext } from "react";
 
-
 const AuthenticationContext = createContext<{
   token: string | null;
   setToken: (token: string | null) => void;
@@ -30,4 +29,3 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export { AuthenticationContext, AuthProvider };
-

@@ -3,4 +3,3 @@ const Profile = () => {
 };
 
 export { Profile };
-

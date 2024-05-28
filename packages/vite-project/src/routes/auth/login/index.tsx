@@ -16,7 +16,9 @@ const Login = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     if (!email || !password) return;
-    const {data: {access_token}} = await Api.auth.loginUser({
+    const {
+      data: { access_token },
+    } = await Api.auth.loginUser({
       email: email.toString(),
       password: password.toString(),
     });
