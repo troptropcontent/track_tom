@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../components/auth/useAuth";
+import { useAuth } from "../../components/auth/useAuth";
 import { ReactNode } from "react";
 
 const AuthentifiedRoute = ({ children }: { children: ReactNode }) => {
