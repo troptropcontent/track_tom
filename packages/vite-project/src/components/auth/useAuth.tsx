@@ -6,7 +6,7 @@ const useAuth = () => {
   const { token, setToken } = useContext(AuthenticationContext);
   if (typeof token == "string") {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  } 
+  }
   return {
     token,
     login: (token: string) => {
