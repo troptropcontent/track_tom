@@ -8,7 +8,9 @@ const Navbar = () => {
   const { token, logout } = useAuth();
   return (
     <Box flex flexDirection="row" items="center" justify="between" padding="md">
-      <Link to="/"><Heading size="2xl">TrackTom</Heading></Link>
+      <Link to="/">
+        <Heading size="2xl">TrackTom</Heading>
+      </Link>
       {token && <Link onClick={logout}>Logout</Link>}
     </Box>
   );
@@ -16,10 +18,10 @@ const Navbar = () => {
 
 function MainLayout() {
   return (
-    <div>
+    <Box flex flexDirection="col">
       <Navbar />
       <Outlet />
-    </div>
+    </Box>
   );
 }
 
