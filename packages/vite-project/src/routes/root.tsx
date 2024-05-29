@@ -21,8 +21,10 @@ const Root = () => {
       <LoadingWrapper isLoading={isLoading}>
         <List.Container>
           <List.EmptyState
-            text="No projects"
+            title="No projects"
+            text="Create a project to get started"
             action={{
+              color: "primary",
               text: "Create project",
               onClick: () => {
                 navigate("/projects/new");

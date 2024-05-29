@@ -1,14 +1,7 @@
 import { useQuery } from "react-query";
 import { BASE_URL } from "../constants";
 import axios from "axios";
-
-type Project = {
-  id: string;
-  name: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-};
+import { Project } from "./types";
 
 const fetchProjects = () =>
   axios

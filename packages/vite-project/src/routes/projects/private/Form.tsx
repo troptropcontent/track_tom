@@ -2,13 +2,11 @@ import { Formik, Form as FormikForm } from "formik";
 import { TextInput } from "../../../components/ui/formik/TextInput";
 import Submit from "../../../components/ui/formik/Submit";
 import { Box } from "../../../components/ui/layouts/box";
+import { BaseProjectProperties } from "../../../api/projects/types";
 
 type FormProps = {
-  handleSubmit: () => void;
-  project: {
-    name: string;
-    description: string;
-  };
+  handleSubmit: (data: BaseProjectProperties) => void;
+  project: BaseProjectProperties;
 };
 const Form = ({ handleSubmit, project: { name, description } }: FormProps) => {
   const InitialValues = {
