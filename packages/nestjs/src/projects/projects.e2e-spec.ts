@@ -141,4 +141,40 @@ describe('Projects', () => {
       });
     });
   });
+
+  describe('POST /projects', () => {
+    describe('when the user is not authenticated', () => {
+      it('should return 401', async () => {
+        await request(app.getHttpServer())
+          .post('/projects')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(401);
+      });
+    });
+    describe('when the user is authenticated', () => {
+      it('should return 201 and the project', async () => {
+        const projectsCountBefore = await projectRepository.count();
+        const user = await createUser();
+        const access_token = await getToken(user);
+        const response = await request(app.getHttpServer())
+          .post('/projects')
+          .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${access_token}`)
+          .expect('Content-Type', /json/)
+          .send({ name: 'Test Project' });
+
+        expect(response.status).toEqual(201);
+        expect(response.body).toEqual({
+          description: null,
+          id: response.body.id,
+          name: 'Test Project',
+          user: { id: user.id },
+        });
+        expect(await projectRepository.count()).toEqual(
+          projectsCountBefore + 1,
+        );
+      });
+    });
+  });
 });
