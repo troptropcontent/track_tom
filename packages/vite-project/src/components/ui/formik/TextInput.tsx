@@ -15,9 +15,15 @@ const TextInput = ({ label, ...htmlInputProps }: TextInputProps) => {
     <Box flex flexDirection="col">
       <label className="flex flex-col">
         {label}
-        <input {...htmlInputProps} className={`${isError ? "border-red-500" : ""} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}/>
+        <input
+          {...field}
+          {...htmlInputProps}
+          className={`${isError ? "border-red-500" : ""} bg-gray-50 border border-gray-3000 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5`}
+        />
       </label>
-      <Text size="sm" color="error">{isError ? error : ""}</Text>
+      <Text size="sm" color="error">
+        {isError ? error : ""}
+      </Text>
     </Box>
   );
 };

@@ -1,47 +1,20 @@
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import { Box } from "../../../components/ui/layouts/box";
 import { Heading } from "../../../components/ui/typography/heading";
 import { TextInput } from "../../../components/ui/formik/TextInput";
-
-const InitialValues = {
-  name: "",
-  description: "",
-};
-
-const validate = (values: typeof InitialValues) => {
-  const errors: Record<string, string> = {};
-  if (!values.name) {
-    errors.name = "Required";
-  }
-  return errors;
-};
+import Form from "../private/Form";
 
 const NewProject = () => {
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    console.log("Submitted");
+  };
   return (
-    <Box padding="md" height="full">
+    <Box padding="md" height="full" flex flexDirection="col" gap="sm">
       <Heading size="md">New project</Heading>
-      <Formik
-        initialValues={InitialValues}
-        onSubmit={handleSubmit}
-        validate={validate}
-      >
-        <Form>
-          <TextInput
-            name="name"
-            type="text"
-            label="Name *"
-            placeholder="Name"
-          />
-          <TextInput
-            name="description"
-            type="text"
-            label="Description"
-            placeholder="Description"
-          />
-          <button type="submit">Submit</button>
-        </Form>
-      </Formik>
+      <Form
+        handleSubmit={handleSubmit}
+        project={{ name: "", description: "" }}
+      />
     </Box>
   );
 };

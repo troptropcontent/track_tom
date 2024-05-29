@@ -18,7 +18,7 @@ type BaseProps = {
     | "span"
     | "template"
     | "textarea"
-    | "video"
+    | "video";
 };
 
 type FlexProps =

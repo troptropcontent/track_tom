@@ -40,7 +40,9 @@ const Classes = {
     flex: "flex",
     flexDirection: {
       row: "flex-row",
+      rowReverse: "flex-row-reverse",
       col: "flex-col",
+      colReverse: "flex-col-reverse",
     },
     items: {
       center: "items-center",
