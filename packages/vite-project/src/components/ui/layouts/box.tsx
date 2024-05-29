@@ -18,15 +18,15 @@ type BaseProps = {
     | "span"
     | "template"
     | "textarea"
-    | "video";
+    | "video"
 };
 
 type FlexProps =
   | {
       flex: true;
       flexDirection: keyof typeof Classes.flex.flexDirection;
-      items: keyof typeof Classes.flex.items;
-      justify: keyof typeof Classes.flex.justify;
+      items?: keyof typeof Classes.flex.items;
+      justify?: keyof typeof Classes.flex.justify;
       gap?: keyof typeof Classes.gap;
     }
   | {
