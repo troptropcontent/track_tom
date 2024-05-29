@@ -17,4 +17,4 @@ const LoadingWrapper = ({
   return <>{children}</>;
 };
 
-export {LoadingWrapper} ;
+export { LoadingWrapper };
