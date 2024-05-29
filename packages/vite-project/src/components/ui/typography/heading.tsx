@@ -3,13 +3,13 @@ import { Classes } from "../constants";
 type HeadingProps = {
   children: React.ReactNode;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  size?: keyof typeof Classes.size;
+  size?: keyof typeof Classes.fontSize.heading;
   weight?: keyof typeof Classes.weight;
 };
 
 const DefaultStyles: {
   [key in NonNullable<HeadingProps["as"]>]: {
-    size: keyof typeof Classes.size;
+    size: keyof typeof Classes.fontSize.heading;
     weight: keyof typeof Classes.weight;
   };
 } = {
@@ -43,7 +43,7 @@ const Heading = ({ children, ...props }: HeadingProps) => {
   const Tag = props.as || "h1";
   const size = props.size || DefaultStyles[Tag].size;
   const weight = props.weight || DefaultStyles[Tag].weight;
-  const classes = [Classes.size[size], Classes.weight[weight]];
+  const classes = [Classes.fontSize.heading[size], Classes.weight[weight]];
 
   return <Tag className={classes.join(" ")}>{children}</Tag>;
 };
