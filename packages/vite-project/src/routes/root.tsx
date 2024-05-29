@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Api } from "../api";
 import { List } from "../components/ui/layouts/List";
-import {LoadingWrapper} from "../components/ui/layouts/LoadingWrapper";
+import { LoadingWrapper } from "../components/ui/layouts/LoadingWrapper";
 import { Box } from "../components/ui/layouts/box";
 import { Heading } from "../components/ui/typography/heading";
 
