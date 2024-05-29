@@ -1,22 +1,16 @@
 import { ReactNode } from "react";
-import { Link } from "../navigation/link";
 import { Box } from "./box";
 import { Heading } from "../typography/heading";
 import { Classes } from "../constants";
-type ListProps = {
-  children: ReactNode;
-  gap?: keyof typeof Classes.gap;
-  emptyState: {
-    text: string;
-    action: Parameters<typeof Link>[0];
-  };
-};
+import {Button} from "../navigation/Button";
+import { Text } from "../typography/Text";
 
 type EmptyStateProps = {
-  text: string;
-  action: Parameters<typeof Link>[0];
+  title: string;
+  text?: string;
+  action: Parameters<typeof Button>[0];
 };
-const EmptyState = ({ text, action }: EmptyStateProps) => {
+const EmptyState = ({ title, text, action }: EmptyStateProps) => {
   return (
     <Box
       flex
@@ -24,10 +18,12 @@ const EmptyState = ({ text, action }: EmptyStateProps) => {
       justify="start"
       items="center"
       padding="lg"
+      gap="md"
       className={"hidden only:flex"}
     >
-      <Heading size="lg">{text}</Heading>
-      <Link {...action} />
+      <Heading size="lg">{title}</Heading>
+      {text && <Text>{text}</Text>}
+      <Button {...action} />
     </Box>
   );
 };
