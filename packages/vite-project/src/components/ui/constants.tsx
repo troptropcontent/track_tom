@@ -3,6 +3,17 @@ const Classes = {
     sm: "p-2",
     md: "p-4",
     lg: "p-8",
+    x: {
+      sm: "px-2",
+      md: "px-4",
+      lg: "px-8",
+    },
+    y: {
+      sm: "py-2",
+      md: "py-4",
+      lg: "py-8",
+    },
+    none: "p-0",
   },
   colors: {
     text: {

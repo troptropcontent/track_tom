@@ -31,10 +31,12 @@ const EmptyState = ({ title, text, action }: EmptyStateProps) => {
 type ContainerProps = {
   children: ReactNode;
   gap?: keyof typeof Classes.gap;
+  padding?: keyof typeof Classes.padding;
 };
-const Container = ({ children, gap = "md" }: ContainerProps) => {
+const Container = ({ children, gap = "md", padding = "sm" }: ContainerProps) => {
   return (
     <Box
+      padding={padding}
       as="ul"
       flex
       flexDirection="col"

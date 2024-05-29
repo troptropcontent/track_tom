@@ -19,7 +19,7 @@ const Root = () => {
       padding="sm"
     >
       <LoadingWrapper isLoading={isLoading}>
-        <List.Container>
+        <List.Container padding="sm">
           <List.EmptyState
             title="No projects"
             text="Create a project to get started"
