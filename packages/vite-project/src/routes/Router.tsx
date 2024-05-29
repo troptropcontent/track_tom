@@ -9,7 +9,7 @@ import { Login } from "./auth/login";
 import { Register } from "./auth/register";
 import { Profile } from "./auth/profile/Index";
 import { Root } from "./Root";
-import { ProjectNew } from "./projects/new/Index";
+import { NewProject } from "./projects/new/Index";
 import { MainLayout } from "./private/MainLayout";
 
 const Router = () => {
@@ -41,7 +41,7 @@ const Router = () => {
             path="new"
             element={
               <AuthentifiedRoute>
-                <ProjectNew />
+                <NewProject />
               </AuthentifiedRoute>
             }
           />
