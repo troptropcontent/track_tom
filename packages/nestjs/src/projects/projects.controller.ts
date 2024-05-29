@@ -1,7 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
+  ForbiddenException,
   Get,
+  HttpCode,
+  NotFoundException,
+  Param,
   Post,
   Request,
   UseGuards,
@@ -31,5 +36,31 @@ export class ProjectsController {
       ...body,
       user: { id: user.id },
     });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async remove(@Param('id') id: string, @Request() req) {
+    const user = req.user;
+
+    const project = await this.projectsService.findOne({
+      where: { id: +id },
+      relations: {
+        user: true,
+      },
+    });
+
+    if (!project) {
+      throw new NotFoundException();
+    }
+
+    if (project.user.id !== user.id) {
+      throw new ForbiddenException();
+    }
+
+    await this.projectsService.remove(id);
+    return {
+      id: +id,
+    };
   }
 }

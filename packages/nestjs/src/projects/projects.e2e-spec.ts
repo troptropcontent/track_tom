@@ -177,4 +177,65 @@ describe('Projects', () => {
       });
     });
   });
+
+  describe('DELETE /projects/:id', () => {
+    describe('when the user is not authenticated', () => {
+      it('should return 401', async () => {
+        await request(app.getHttpServer())
+          .delete('/projects/1')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(401);
+      });
+    });
+    describe('when the user is authenticated', () => {
+      describe('when the project does not exist', () => {
+        it('should return 404', async () => {
+          const user = await createUser();
+          const access_token = await getToken(user);
+          await request(app.getHttpServer())
+            .delete(`/projects/1234567890`)
+            .set('Accept', 'application/json')
+            .set('Authorization', `Bearer ${access_token}`)
+            .expect('Content-Type', /json/)
+            .expect(404);
+        });
+      });
+
+      describe('when the project exists', () => {
+        describe('when the user is not the owner', () => {
+          it('should return 403', async () => {
+            const user = await createUser();
+            const project = await createProject(user);
+            const anotherUser = await createUser('another@test.com');
+            const anotherAccessToken = await getToken(anotherUser);
+            await request(app.getHttpServer())
+              .delete(`/projects/${project.id}`)
+              .set('Accept', 'application/json')
+              .set('Authorization', `Bearer ${anotherAccessToken}`)
+              .expect('Content-Type', /json/)
+              .expect(403);
+          });
+        });
+        describe('when the user is the owner', () => {
+          it('should return 200', async () => {
+            const user = await createUser();
+            const access_token = await getToken(user);
+            const project = await createProject(user);
+            const projectsCountBefore = await projectRepository.count();
+            const response = await request(app.getHttpServer())
+              .delete(`/projects/${project.id}`)
+              .set('Accept', 'application/json')
+              .set('Authorization', `Bearer ${access_token}`)
+              .expect('Content-Type', /json/)
+              .expect(200);
+            expect(response.body).toEqual({ id: project.id });
+            expect(await projectRepository.count()).toEqual(
+              projectsCountBefore - 1,
+            );
+          });
+        });
+      });
+    });
+  });
 });
