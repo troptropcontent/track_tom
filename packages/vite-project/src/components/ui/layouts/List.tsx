@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Box } from "./box";
 import { Heading } from "../typography/heading";
 import { Classes } from "../constants";
-import {Button} from "../navigation/Button";
+import { Button } from "../navigation/Button";
 import { Text } from "../typography/Text";
 
 type EmptyStateProps = {
@@ -33,7 +33,11 @@ type ContainerProps = {
   gap?: keyof typeof Classes.gap;
   padding?: keyof typeof Classes.padding;
 };
-const Container = ({ children, gap = "md", padding = "sm" }: ContainerProps) => {
+const Container = ({
+  children,
+  gap = "md",
+  padding = "sm",
+}: ContainerProps) => {
   return (
     <Box
       padding={padding}

@@ -9,6 +9,6 @@ const createProject = (data: BaseProjectProperties) =>
     .then((response) => response.data);
 
 const useCreateProjectMutation = () =>
-  useMutation({ mutationFn: createProject});
+  useMutation({ mutationFn: createProject });
 
 export { useCreateProjectMutation };

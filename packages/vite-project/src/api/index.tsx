@@ -10,7 +10,7 @@ const Api = {
   },
   projects: {
     useProjectsQuery,
-    useCreateProjectMutation
+    useCreateProjectMutation,
   },
 };
 

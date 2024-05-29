@@ -4,9 +4,9 @@ import { Link as RouterLink } from "react-router-dom";
 export type LinkProps = BaseLinkProps & (NavigationLinkProps | ActionLinkProps);
 
 type BaseLinkProps = {
-    className?: string;
-  } & (
-    {
+  className?: string;
+} & (
+  | {
       children: ReactNode;
       text?: null;
     }
@@ -14,7 +14,7 @@ type BaseLinkProps = {
       children?: null;
       text: string;
     }
-  )
+);
 
 type ActionLinkProps = {
   onClick: () => void;
@@ -28,9 +28,17 @@ type NavigationLinkProps = {
 
 const Link = ({ children, className, text, to, onClick }: LinkProps) => {
   if (typeof to === "string") {
-    return <RouterLink className={className} to={to}>{children || text}</RouterLink>;
+    return (
+      <RouterLink className={className} to={to}>
+        {children || text}
+      </RouterLink>
+    );
   }
-  return <button className={className} onClick={onClick}>{children || text}</button>;
+  return (
+    <button className={className} onClick={onClick}>
+      {children || text}
+    </button>
+  );
 };
 
 export { Link };

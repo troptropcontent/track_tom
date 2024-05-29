@@ -8,15 +8,15 @@ import { Api } from "../../../api";
 import { useNavigate } from "react-router-dom";
 
 const NewProject = () => {
-  const { mutate: createProject } = Api.projects.useCreateProjectMutation()
-  const navigate = useNavigate()
+  const { mutate: createProject } = Api.projects.useCreateProjectMutation();
+  const navigate = useNavigate();
   const handleSubmit = (values: BaseProjectProperties) => {
     createProject(values, {
       onSuccess: () => {
-        console.log("Project created")
-        navigate("/")
-      }
-    })
+        console.log("Project created");
+        navigate("/");
+      },
+    });
   };
   return (
     <Box padding="md" height="full" flex flexDirection="col" gap="sm">
