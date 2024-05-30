@@ -20,6 +20,7 @@ const Classes = {
       black: "text-black",
       white: "text-white",
       primary: "text-sky-500",
+      neutral: "text-neutral-500",
       error: "text-red-500",
     },
     background: {

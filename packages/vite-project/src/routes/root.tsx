@@ -1,4 +1,5 @@
 import React from "react";
+import { MdDeleteOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Api } from "../api";
 import { List } from "../components/ui/layouts/List";
@@ -37,12 +38,12 @@ const Root = () => {
             <List.Item key={project.id} flex flexDirection="row" justify="between">
               <Heading>{project.name}</Heading>
               <Button
-                color="danger"
+                color="transparent"
                 onClick={() => {
                   removeProject(+project.id);
                 }}
               >
-                Remove
+                <MdDeleteOutline size="20"/>
               </Button>
             </List.Item>
           ))}

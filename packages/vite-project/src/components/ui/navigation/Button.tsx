@@ -7,13 +7,14 @@ const Button = ({
   text,
   ...linkProps
 }: LinkProps & {
-  color: keyof typeof Classes.colors.background;
+  color: keyof typeof Classes.colors.background | "transparent";
   text?: string;
 }) => {
   const className = [
     "px-4 py-2 rounded-md",
-    Classes.colors.background[color][500],
-    Classes.colors.text.white,
+    color === "transparent" ? "bg-white" : Classes.colors.background[color][500],
+    color === "transparent" ? Classes.colors.text.neutral : Classes.colors.text.white,
+    "hover:brightness-75"
   ].join(" ");
 
   return (
